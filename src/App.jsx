@@ -15,7 +15,6 @@ function App() {
           element: <Page.Chat />,
           children: [
             { index: true, element: <Page.Chat /> },
-            { path: "growth-plan", element: <Page.Chat /> },
             { path: "linked-ai-value", element: <Page.Chat /> },
             { path: "ai-responsible-use", element: <Page.Chat /> },
             { path: "ai-tech-enablement", element: <Page.Chat /> },

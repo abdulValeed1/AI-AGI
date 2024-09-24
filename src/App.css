@@ -75,3 +75,26 @@
     }
   }
   
+  @keyframes blink {
+    0% { opacity: .2; }
+    20% { opacity: 1; }
+    100% { opacity: .2; }
+  }
+  
+  .typing-animation .dot {
+    animation: blink 1.4s infinite both;
+    background-color: #ffffff;
+    border-radius: 50%;
+    display: inline-block;
+    height: 7px;
+    margin-right: 4px;
+    width: 7px;
+  }
+  
+  .typing-animation .dot:nth-child(2) {
+    animation-delay: .2s;
+  }
+  
+  .typing-animation .dot:nth-child(3) {
+    animation-delay: .4s;
+  }

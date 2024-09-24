@@ -1,13 +1,21 @@
 import { ChatMessage } from "components/Chat/Message";
 import { Separator } from "components/ui/separator";
+import { useEffect, useState} from "react";
+import TypingLoader from "./TypingLoader"
 
 const ChatMessageList = ({
   messages,
   setCurrentArtifact,
   containerRef,
-  isInteractive
+  showResult,
+  selectedMsg,
+  isLoading
 }) => {
-  console.log("messages", messages)
+  
+  const [isMessageLoading, setIsMesssageLoading] = useState(isLoading)
+  useEffect(()=>{
+    setIsMesssageLoading(isLoading)
+  },[isLoading])
   return (
     <div
       ref={containerRef}
@@ -22,7 +30,9 @@ const ChatMessageList = ({
             text={message.content}
             attachments={message.experimental_attachments || []}
             setCurrentArtifact={setCurrentArtifact}
-            isInteractive={isInteractive}
+            showResult={showResult}
+            helpExamples={message.examples || []}
+            isLoading={isMessageLoading}
           />
 
           {index !== messages.length - 1 && <Separator />}

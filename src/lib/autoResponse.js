@@ -1,9 +1,9 @@
 export const autoResponse = [
   `
-<artifact identifier="sustainable-growth-strategy" type="application/react" title="Sustainable Growth Strategy Presentation">
+<artifact identifier="sustainable-growth-strategy-Result" type="application/react" title="Sustainable Growth Strategy Presentation">
 import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const ContentRenderer = ({ item }) => {
   switch (item.type) {
@@ -18,54 +18,18 @@ const ContentRenderer = ({ item }) => {
         </ul>
       );
     case 'graph':
-      if (item.graphType === 'bar') {
-        return (
-          <div className="h-80 mb-6">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={item.data}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
-                <XAxis dataKey="name" tick={{ fill: '#4a5568' }} />
-                <YAxis tick={{ fill: '#4a5568' }} />
-                <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
-                <Legend wrapperStyle={{ paddingTop: '20px' }} />
-                <Bar dataKey="value" fill="#3182ce" radius={[8, 8, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
-        );
-      } else if (item.graphType === 'pie') {
-        const COLORS = ['#3182ce', '#38a169', '#ecc94b', '#e53e3e', '#805ad5'];
-
-        return (
-          <div className="h-80 mb-6">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={item.data}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  outerRadius={120}
-                  fill="#8884d8"
-                  dataKey="value"
-                  label={({ name, percent }) => name + " " + (percent * 100).toFixed(0) + "%"}
-                >
-                  {item.data.map((entry, index) => (
-                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                  ))}
-                </Pie>
-                <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
-              </PieChart>
-            </ResponsiveContainer>
-          </div>
-        );
-      }
-      return null;
-    case 'figure':
       return (
-        <div className="mb-6">
-          <img src={item.value} alt={item.caption} className="mx-auto rounded-lg shadow-md" />
-          <p className="text-center text-sm text-gray-600 mt-3">{item.caption}</p>
+        <div className="h-80 mb-6">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={item.data}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#ccc" />
+              <XAxis dataKey="name" tick={{ fill: '#4a5568' }} />
+              <YAxis tick={{ fill: '#4a5568' }} />
+              <Tooltip contentStyle={{ backgroundColor: '#fff', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)' }} />
+              <Legend wrapperStyle={{ paddingTop: '20px' }} />
+              <Bar dataKey="value" fill="#3182ce" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       );
     default:
@@ -73,77 +37,109 @@ const ContentRenderer = ({ item }) => {
   }
 };
 
-const AdvancedPPTSlide = () => {
+const AIStrategyPPT = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      "title": "Sustainable Growth Strategy for Motor Insurance Tech Operations",
+      "title": "AI Strategy for Motor Insurance Tech Operations",
       "content": [
-        { "type": "text", "value": "Our strategy for FY 2025-2026 aims to drive sustainable growth and operational excellence in motor insurance technology:" },
+        { "type": "text", "value": "Revolutionizing motor insurance operations through AI-driven solutions:" },
         { "type": "bullet", "value": [
-          "Increase market share by 20% through technological innovations",
-          "Reduce operational costs by 15% through automation and process optimization",
-          "Enhance customer satisfaction by 30% with improved services and personalization",
-          "Achieve 100% carbon neutrality in tech operations by the end of FY 2026"
+          "Operational Efficiency",
+          "Customer Value",
+          "Competitive Advantage",
+          "Reporting Intelligence",
+          "Technology Development",
+          "Risk Management",
+          "Team Effectiveness"
         ]},
-        { "type": "graph", "graphType": "bar", "data": [
-          { "name": "Current Market Share", "value": 100 },
-          { "name": "Target Market Share", "value": 120 },
-          { "name": "Current Operational Costs", "value": 100 },
-          { "name": "Target Operational Costs", "value": 85 },
-          { "name": "Current Customer Satisfaction", "value": 100 },
-          { "name": "Target Customer Satisfaction", "value": 130 }
-        ]},
-        { "type": "text", "value": "Financial Projections for FY 2025-2026:" },
+        { "type": "text", "value": "Let's explore the transformative power of AI in each of these key areas." }
+      ]
+    },
+    {
+      "title": "Operational Efficiency",
+      "content": [
+        { "type": "text", "value": "Streamlining processes and maximizing resource utilization" },
         { "type": "bullet", "value": [
-          "Current Revenue: $600 million",
-          "Projected Revenue (20% increase): $720 million",
-          "Current Operational Costs: $350 million",
-          "Projected Operational Costs (15% reduction): $297.5 million",
-          "Projected Profit Increase: $122.5 million"
+          "AI-powered claims automation for 24/7 processing",
+          "Intelligent work routing and prioritization",
+          "Predictive analytics for optimal workload forecasting and staffing"
+        ]},
+        { "type": "graph", "data": [
+          { "name": "Manual Processing Time", "value": 100 },
+          { "name": "AI-Assisted Processing Time", "value": 30 },
+          { "name": "Current Efficiency", "value": 100 },
+          { "name": "Projected Efficiency", "value": 180 }
         ]}
       ]
     },
     {
-      "title": "Product Innovation and Development",
+      "title": "Customer Value",
       "content": [
-        { "type": "text", "value": "Introducing new technology-driven insurance products:" },
+        { "type": "text", "value": "Elevating customer experience through personalization and responsiveness" },
         { "type": "bullet", "value": [
-          "Usage-Based Insurance (UBI) with real-time risk assessment",
-          "Predictive alerts for maintenance and claim prevention",
-          "Enhanced virtual insurance advisor services",
-          "Automated claims processing with advanced data analytics"
+          "24/7 AI chatbots for instant query resolution",
+          "Machine learning for tailored policy recommendations",
+          "Proactive service interventions through predictive analytics"
         ]},
-        { "type": "graph", "graphType": "bar", "data": [
-          { "name": "Current Product Adoption", "value": 60 },
-          { "name": "Projected Technology-Driven Product Adoption", "value": 50 }
-        ]},
-        { "type": "text", "value": "Projected adoption of new technology-driven products to reach 60% by Q4 2025" }
+        { "type": "graph", "data": [
+          { "name": "Current Customer Satisfaction", "value": 75 },
+          { "name": "Projected Customer Satisfaction", "value": 95 },
+          { "name": "Average Response Time (min)", "value": 30 },
+          { "name": "AI-Assisted Response Time (min)", "value": 5 }
+        ]}
       ]
     },
     {
-      "title": "Implementation Roadmap and KPIs",
+      "title": "Competitive Advantage",
       "content": [
-        { "type": "text", "value": "Phased plan for implementing and scaling the technology strategy:" },
+        { "type": "text", "value": "Harnessing AI to outpace the market and redefine insurance products" },
         { "type": "bullet", "value": [
-          "Q1-Q2 2025: Establish infrastructure and prepare data",
-          "Q3 2025: Launch pilot projects and new product trials",
-          "Q4 2025: Full deployment of new technology-driven operations and customer-facing solutions",
-          "Q1-Q2 2026: Evaluate, optimize, and scale technology initiatives"
+          "Real-time risk assessment and dynamic pricing models",
+          "AI-driven predictive maintenance alerts for proactive customer care",
+          "Advanced fraud detection systems for faster, more accurate claims processing"
         ]},
-        { "type": "graph", "graphType": "bar", "data": [
-          { "name": "Q1-Q2 2025", "value": 25 },
-          { "name": "Q3 2025", "value": 50 },
-          { "name": "Q4 2025", "value": 75 },
-          { "name": "Q1-Q2 2026", "value": 100 }
-        ]},
-        { "type": "text", "value": "Key Performance Indicators (KPIs):" },
+        { "type": "graph", "data": [
+          { "name": "Traditional Products", "value": 100 },
+          { "name": "AI-Driven Products", "value": 150 },
+          { "name": "Current Market Share", "value": 20 },
+          { "name": "Projected Market Share", "value": 30 }
+        ]}
+      ]
+    },
+    {
+      "title": "Reporting Intelligence & Technology Development",
+      "content": [
+        { "type": "text", "value": "Empowering decision-making and accelerating innovation" },
         { "type": "bullet", "value": [
-          "Model accuracy: Achieve 97% by Q4 2025",
-          "Percentage of processed claims: 75% by Q2 2026",
-          "Customer satisfaction with new services: Target 95% by Q2 2026",
-          "Return on technology investments: Target 250% by Q4 2026"
+          "AI-powered real-time business intelligence dashboards",
+          "Predictive analytics for trend forecasting and strategic planning",
+          "AI-assisted software development for rapid prototyping and testing"
+        ]},
+        { "type": "graph", "data": [
+          { "name": "Traditional Reporting Cycle (days)", "value": 30 },
+          { "name": "AI-Assisted Reporting Cycle (days)", "value": 1 },
+          { "name": "Current Tech Development Speed", "value": 100 },
+          { "name": "AI-Enhanced Development Speed", "value": 200 }
+        ]}
+      ]
+    },
+    {
+      "title": "Risk Management & Team Effectiveness",
+      "content": [
+        { "type": "text", "value": "Minimizing risks and maximizing human potential through AI" },
+        { "type": "bullet", "value": [
+          "Advanced AI models for precise risk scoring and portfolio management",
+          "Early warning systems and risk alerts powered by machine learning",
+          "AI-driven task allocation and skill matching for optimal team performance",
+          "NLP-enhanced communication tools for seamless knowledge sharing"
+        ]},
+        { "type": "graph", "data": [
+          { "name": "Traditional Risk Assessment Accuracy", "value": 70 },
+          { "name": "AI-Enhanced Risk Assessment Accuracy", "value": 95 },
+          { "name": "Current Team Productivity", "value": 100 },
+          { "name": "AI-Assisted Team Productivity", "value": 150 }
         ]}
       ]
     }
@@ -192,7 +188,7 @@ const AdvancedPPTSlide = () => {
   );
 };
 
-export default AdvancedPPTSlide;
+export default AIStrategyPPT;
 </artifact>
     `,
   `

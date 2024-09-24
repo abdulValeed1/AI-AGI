@@ -9,7 +9,7 @@ export default function Markdown({ text, className = "" }) {
   return (
     <MemoizedReactMarkdown
       className={twMerge(
-        "prose text-black dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 max-w-none break-words",
+        "prose text-white dark:prose-invert prose-p:leading-relaxed prose-pre:p-0 max-w-none break-words",
         className
       )}
       remarkPlugins={[remarkGfm]}

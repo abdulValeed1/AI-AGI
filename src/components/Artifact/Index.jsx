@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react'
 import { ArtifactContainer } from './ArtifactContainer'
 
-function ArtifactPanel({title, id, type, generating,content,language, onClose, onCapture, isInteractive, handleInteractive, handleSubChatClick}) {
-    useEffect(()=>{
-        console.log("isInteractive", isInteractive)
-    },[isInteractive])
+function ArtifactPanel({title, id, type, generating,content,language, onClose, onCapture, showResult, handleShowresult, handleSubChatClick}) {
     return (
     <>
-    {isInteractive ? (
+    {!showResult ? (
       <div className="w-full max-w-3xl h-full max-h-full pt-6 pb-4">
         <ArtifactContainer
             title={title}
@@ -18,8 +15,8 @@ function ArtifactPanel({title, id, type, generating,content,language, onClose, o
             language={language}
             onClose={onClose}
             onCapture={onCapture}
-            isInteractive={isInteractive}
-            handleInteractive={handleInteractive}
+            showResult={showResult}
+            handleShowresult={handleShowresult}
             handleSubChatClick={handleSubChatClick}
         />
       </div>
@@ -35,8 +32,8 @@ function ArtifactPanel({title, id, type, generating,content,language, onClose, o
                 language={language}
                 onClose={onClose}
                 onCapture={onCapture}
-                isInteractive={isInteractive}
-                handleInteractive={handleInteractive}
+                showResult={showResult}
+                handleShowresult={handleShowresult}
                 handleSubChatClick={handleSubChatClick}
             />
           </div>

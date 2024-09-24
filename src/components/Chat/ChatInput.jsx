@@ -11,6 +11,25 @@ import { useEnterSubmit } from "lib/hooks/useEnterSubmit";
 import AttachmentPreviewButton from "components/Chat/AttachmentPreviewButton";
 import { convertFileToBase64 } from "lib/utils";
 
+const Handlers = ({handleShowInput, handleShowResult}) => {
+  return(
+    <div className="p-4 flex rounded-md justify-center bg-transparent space-x-4 border border-white mb-2 ">
+          <button 
+            onClick={()=>handleShowInput(true)}
+            className="px-4 py-2 rounded-lg border border-white bg-transparent text-white hover:bg-white hover:text-indigo-600 transition-colors duration-300"
+          >
+            Add more value
+          </button>
+          <button 
+            onClick={() => {handleShowResult(true)}}
+            className="px-4 py-2 rounded-lg border border-white bg-transparent text-white hover:bg-white hover:text-indigo-600 transition-colors duration-300"
+          >
+            Go to the result
+          </button>
+        </div>
+  );
+}
+
 export const ChatInput = ({
   input,
   setInput,
@@ -22,6 +41,9 @@ export const ChatInput = ({
   showScrollButton,
   handleManualScroll,
   stopGenerating,
+  showInput,
+  handleShowInput,
+  handleShowResult
 }) => {
   const inputRef = useRef(null);
   const { onKeyDown } = useEnterSubmit({ onSubmit });
@@ -65,8 +87,9 @@ export const ChatInput = ({
         </Button>
       )}
 
-      <div className="w-full flex flex-col gap-1 bg-[#F4F4F4] p-2.5 pl-4 rounded-md border border-b-0 rounded-b-none shadow-md">
+      <div className="w-full flex flex-col gap-1 p-2.5 pl-4 rounded-md bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg shadow-lg border border-white border-opacity-20 rounded-b-none shadow-md">
         {/* Attachment preview */}
+        {showInput ? <>
         {attachments && (
           <div className="flex items-center gap-2 mb-2">
             {attachments.map((attachment, index) => (
@@ -86,7 +109,7 @@ export const ChatInput = ({
             tabIndex={0}
             onKeyDown={onKeyDown}
             placeholder="Send a message."
-            className="min-h-15 max-h-96 overflow-auto w-full bg-transparent border-none resize-none focus-within:outline-none"
+            className="min-h-15 max-h-96 overflow-auto w-full bg-transparent border-none resize-none focus-within:outline-none text-white"
             autoFocus
             spellCheck={false}
             autoComplete="off"
@@ -111,7 +134,7 @@ export const ChatInput = ({
           <Button
             variant="outline"
             size="icon"
-            className="w-8 h-8 bg-transparent"
+            className="w-8 h-8 bg-transparent text-white"
             onClick={handleFileUpload}
           >
             <PaperclipIcon className="w-4 h-4" />
@@ -119,9 +142,10 @@ export const ChatInput = ({
 
           {/* Submit button */}
           <Button
+            variant="outline"
             onClick={isLoading ? stopGenerating : onSubmit}
             size="icon"
-            className="w-8 h-8"
+            className="w-8 h-8 bg-transparent text-white"
           >
             {isLoading ? (
               <CircleStopIcon className="w-4 h-4" />
@@ -130,6 +154,8 @@ export const ChatInput = ({
             )}
           </Button>
         </div>
+        </> : <Handlers handleShowInput={handleShowInput} handleShowResult={handleShowResult}/> }
+        {/*  */}
       </div>
     </div>
   );

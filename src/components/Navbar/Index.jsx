@@ -11,7 +11,6 @@ function Index() {
         path: "/chat",
         label: "Chat",
         subItems: [
-          { path: "/chat/growth-plan", label: "Growth Plan" },
           { path: "/chat/linked-ai-value", label: "Linked AI Value" },
           { path: "/chat/ai-responsible-use", label: "AI Responsible Use" },
           { path: "/chat/ai-tech-enablement", label: "AI Tech Enablement" }
@@ -30,7 +29,7 @@ function Index() {
     }, [location.pathname]);
   
     return (
-      <div className="h-screen max-h-screen overflow-hidden flex flex-col gap-4 justify-between px-2 py-2 pb-4 bg-slate-50 w-[200px]">
+      <div className="h-screen max-h-screen overflow-hidden flex flex-col gap-4 justify-between px-2 py-2 pb-4 bg-gray-900 bg-opacity-50 backdrop-filter backdrop-blur-lg w-[200px] text-white">
         <div className="flex flex-col gap-6">
           <Link to="/" className="text-lg font-semibold text-center">
             AGI

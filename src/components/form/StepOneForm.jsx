@@ -3,102 +3,159 @@ import { useNavigate } from 'react-router-dom';
 
 const StepOneForm = () => {
   const navigate = useNavigate()
-  const [role, setRole] = useState('');
-  const [industry, setIndustry] = useState('');
-  const [specificArea, setSpecificArea] = useState('');
-  const [message, setMessage] = useState('');
+  const [mainInfo, setMainInfo] = useState({ persona: '', businessVertical: '', winningAspiration: '' });
+  const [isMainInfoSubmitted, setIsMainInfoSubmitted] = useState(false);
+  const [focusAreas, setFocusAreas] = useState([]);
+  const [newFocusArea, setNewFocusArea] = useState({ 
+    priorityOutcome: '', 
+    measurableTarget: '', 
+    risksAndDependencies: '' 
+  });
 
-  const roles = ['Manager', 'Developer', 'System Architect', 'Designer', 'Product Owner'];
-  const industries = ['Finance', 'Insurance', 'Medical', 'Technology', 'Education'];
-  const specificAreas = {
-    Finance: ['Banking', 'Investment', 'Accounting', 'Financial Planning'],
-    Insurance: ['Motor Insurance', 'Health Insurance', 'Life Insurance', 'Property Insurance'],
-    Medical: ['Healthcare', 'Pharmaceuticals', 'Medical Devices', 'Biotechnology'],
-    Technology: ['Software Development', 'Cybersecurity', 'Cloud Computing', 'Artificial Intelligence'],
-    Education: ['K-12', 'Higher Education', 'Online Learning', 'Special Education']
+  const handleMainInfoChange = (e) => {
+    setMainInfo({ ...mainInfo, [e.target.name]: e.target.value });
+  };
+
+  const submitMainInfo = () => {
+    if (mainInfo.persona && mainInfo.businessVertical && mainInfo.winningAspiration) {
+      setIsMainInfoSubmitted(true);
+    } else {
+      alert('Please fill all main info fields before submitting.');
+    }
+  };
+
+  const handleFocusAreaChange = (e) => {
+    setNewFocusArea({ ...newFocusArea, [e.target.name]: e.target.value });
+  };
+
+  const addFocusArea = () => {
+    if (newFocusArea.priorityOutcome.trim() !== '') {
+      setFocusAreas([...focusAreas, newFocusArea]);
+      setNewFocusArea({ priorityOutcome: '', measurableTarget: '', risksAndDependencies: '' });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ role, industry, specificArea, message });
-    navigate("/chat/growth-plan")
+    navigate("/chat/linked-ai-value")
     // Here you would typically send this data to a server or perform other actions
   };
 
   return (
-    <div className="w-full bg-white rounded-lg shadow-xl">
-      <form onSubmit={handleSubmit} className="space-y-6 p-8">
-        <div>
-          <label htmlFor="role" className="block text-sm font-medium text-gray-700">Who are you?</label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          >
-            <option value="">Select a role</option>
-            {roles.map((r) => (
-              <option key={r} value={r}>{r}</option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <label htmlFor="industry" className="block text-sm font-medium text-gray-700">Industry</label>
-          <select
-            id="industry"
-            value={industry}
-            onChange={(e) => {
-              setIndustry(e.target.value);
-              setSpecificArea('');
-            }}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-          >
-            <option value="">Select an industry</option>
-            {industries.map((i) => (
-              <option key={i} value={i}>{i}</option>
-            ))}
-          </select>
-        </div>
-
-        {industry && (
+    <div className="bg-gray-900 text-white p-6 w-full mx-auto">
+      <h1 className="text-2xl font-bold mb-6 text-center">Business Planning Input Form</h1>
+      
+      {/* Main Info Section */}
+      <div className="mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div>
-            <label htmlFor="specificArea" className="block text-sm font-medium text-gray-700">Specific Area</label>
-            <select
-              id="specificArea"
-              value={specificArea}
-              onChange={(e) => setSpecificArea(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            >
-              <option value="">Select a specific area</option>
-              {specificAreas[industry].map((area) => (
-                <option key={area} value={area}>{area}</option>
-              ))}
-            </select>
+            <label className="block mb-1">Persona</label>
+            <input 
+              type="text" 
+              name="persona"
+              value={mainInfo.persona}
+              onChange={handleMainInfoChange}
+              disabled={isMainInfoSubmitted}
+              className="w-full bg-gray-800 border border-gray-700 rounded p-2" 
+            />
           </div>
-        )}
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
-          <textarea
-            id="message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            rows="4"
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-            placeholder="Enter your message here"
-          ></textarea>
+          <div>
+            <label className="block mb-1">Business Vertical</label>
+            <input 
+              type="text" 
+              name="businessVertical"
+              value={mainInfo.businessVertical}
+              onChange={handleMainInfoChange}
+              disabled={isMainInfoSubmitted}
+              className="w-full bg-gray-800 border border-gray-700 rounded p-2" 
+            />
+          </div>
         </div>
-
-        <div>
-          <button
-            type="submit"
-            className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        <div className="mb-4">
+          <label className="block mb-1">Winning Aspiration</label>
+          <input 
+            type="text" 
+            name="winningAspiration"
+            value={mainInfo.winningAspiration}
+            onChange={handleMainInfoChange}
+            disabled={isMainInfoSubmitted}
+            className="w-full bg-gray-800 border border-gray-700 rounded p-2" 
+          />
+        </div>
+        {!isMainInfoSubmitted && (
+          <button 
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={submitMainInfo}
           >
-            Next
+            Submit Business Context
           </button>
+        )}
+      </div>
+
+      {/* Add Focus Area Section */}
+      {isMainInfoSubmitted && (
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-4">Add Focus Area</h2>
+          <div className="space-y-2">
+            <input 
+              type="text" 
+              name="priorityOutcome"
+              placeholder="Priority Outcome"
+              value={newFocusArea.priorityOutcome}
+              onChange={handleFocusAreaChange}
+              className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+            />
+            <input 
+              type="text" 
+              name="measurableTarget"
+              placeholder="Measurable Target"
+              value={newFocusArea.measurableTarget}
+              onChange={handleFocusAreaChange}
+              className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+            />
+            <input 
+              type="text" 
+              name="risksAndDependencies"
+              placeholder="Risks and Dependencies"
+              value={newFocusArea.risksAndDependencies}
+              onChange={handleFocusAreaChange}
+              className="w-full bg-gray-800 border border-gray-700 rounded p-2"
+            />
+            <button 
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
+              onClick={addFocusArea}
+            >
+              Add Focus Area
+            </button>
+          </div>
         </div>
-      </form>
+      )}
+
+      {/* Focus Area Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {focusAreas.map((area, index) => (
+          <div key={index} className="bg-gray-800 p-4 rounded">
+            <h3 className="text-lg font-semibold mb-3">Focus Area {index + 1}</h3>
+            <h4 className="font-semibold mb-2">Priority Outcome</h4>
+            <p className="bg-gray-700 border border-gray-600 rounded p-2 mb-2">{area.priorityOutcome}</p>
+            <h4 className="font-semibold mb-2">Measurable Target</h4>
+            <p className="bg-gray-700 border border-gray-600 rounded p-2 mb-2">{area.measurableTarget}</p>
+            <h4 className="font-semibold mb-2">Risks and Dependencies</h4>
+            <p className="bg-gray-700 border border-gray-600 rounded p-2">{area.risksAndDependencies}</p>
+          </div>
+        ))}
+      </div>
+      <button 
+              className={`w-full space-x-2 p-2 rounded-lg border transition duration-200 
+                ${isMainInfoSubmitted && focusAreas.length ? 
+                    'bg-gray-800 text-blue-400 border-blue-400 hover:bg-blue-400 hover:text-gray-800 hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] cursor-pointer' : 
+                    'bg-gray-500 text-gray-300 border-gray-500 cursor-not-allowed'
+                }`}
+              onClick={handleSubmit}
+              disabled={!isMainInfoSubmitted || !focusAreas.length}
+            >
+              Go To the Next Step
+      </button>
     </div>
   );
 };
